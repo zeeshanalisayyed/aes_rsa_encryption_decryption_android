@@ -1,4 +1,4 @@
-package com.userexperior.uedecryptutil;
+package com.zee.uedecryptutil;
 
 import java.io.DataInputStream;
 import java.io.File;
@@ -23,9 +23,9 @@ import javax.crypto.spec.SecretKeySpec;
 
 class DecryptUtil {
 
-	private static String keezPath = "D:\\user_experior\\keez\\";
-	private static String sourcePath = "D:\\user_experior\\zips_and_crash_logs\\encrypted";
-	private static String destPath = "D:\\user_experior\\zips_and_crash_logs\\decrypted\\";
+	private static String keezPath = "D:\\zee\\keez\\";
+	private static String sourcePath = "D:\\zee\\files\\encrypted";
+	private static String destPath = "D:\\zee\\files\\decrypted\\";
 	
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
@@ -38,7 +38,7 @@ class DecryptUtil {
 			parentFile.mkdirs();
 		}
 		
-		if(file.exists()) saveFiles(file);
+		if(file.exists()) decryptAndSaveFiles(file);
 	}
 	
 	private static void createDirectories(){
@@ -52,7 +52,7 @@ class DecryptUtil {
 		}
 	}
 	
-	private static void saveFiles(File folder) throws IOException{
+	private static void decryptAndSaveFiles(File folder) throws IOException{
 		byte secretKeyBytes[] = loadSecretKey();
 		PrivateKey privateKey = loadPrivateKey();
 		
@@ -60,7 +60,7 @@ class DecryptUtil {
 			byte[] secretKeyDecrypted = DecryptUtil.decryptSecKeyToBytes(secretKeyBytes, privateKey);
 			for(File f : folder.listFiles()){
 				if(f != null && f.exists() && f.isFile()){
-					System.out.println("File decrypted ===== "+f.getAbsolutePath());
+					System.out.println("File decrypted ===== " + f.getAbsolutePath());
 					byte[] bytesArray = new byte[(int) f.length()];
 					FileInputStream fis = new FileInputStream(f);
 					fis.read(bytesArray);
@@ -68,7 +68,6 @@ class DecryptUtil {
 					
 					DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy_HH-mm-ss");
 					Date date = new Date();
-					//System.out.println(dateFormat.format(date));
 					File file = new File(destPath+dateFormat.format(date)+"_dec_"+f.getName());
 					File parentFile = file.getParentFile();
 					if(!parentFile.exists()){
@@ -136,7 +135,6 @@ class DecryptUtil {
     }
 	
 	private static byte[] loadSecretKey() throws IOException{
-		//File file = new File("C:\\Users\\userexperior\\public\\ue\\resources\\keez\\SecKey.pem");
 		File file = new File(keezPath + "SecKey.pem");
 		File parentFile = file.getParentFile();
 		if(!parentFile.exists()){
@@ -157,7 +155,6 @@ class DecryptUtil {
 	}
 
 	private static PrivateKey loadPrivateKey() {
-		//File filePrivateKey = new File("C:\\Users\\userexperior\\public\\ue\\resources\\keez\\privateKey.pem");
 		File filePrivateKey = new File(keezPath + "privateKey.pem");
 		File parentFile = filePrivateKey.getParentFile();
 		if(!parentFile.exists()){
