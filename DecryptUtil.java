@@ -23,7 +23,7 @@ import javax.crypto.spec.SecretKeySpec;
 
 class DecryptUtil {
 
-	private static String keezPath = "D:\\zee\\keez\\";
+	private static String keezPath = "D:\\zee\\keys\\";
 	private static String sourcePath = "D:\\zee\\files\\encrypted";
 	private static String destPath = "D:\\zee\\files\\decrypted\\";
 	
