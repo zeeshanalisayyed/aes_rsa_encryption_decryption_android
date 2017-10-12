@@ -1,7 +1,6 @@
-package com.userexperior.utilities;
+package com.zee.utilities;
 
 import android.util.Base64;
-import com.userexperior.UserExperior;
 import java.security.InvalidKeyException;
 import java.security.KeyFactory;
 import java.security.MessageDigest;
@@ -17,16 +16,12 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
-/**
- * Created by userexperior on 29-04-2017.
- */
-
 public class EncryptionUtil {
 
     public static byte[] generateAesSecretKey(){
-        String SALT2 = "It's fine and shine!";
-        String username = "fineandshine@userexperior.com";
-        String password = "fineandshine@123";
+        String SALT2 = "strong_salt_value";
+        String username = "user_name";
+        String password = "strong_password";
         byte[] key = (SALT2 + username + password).getBytes();
         SecretKey secretKeySpec = null;
 
@@ -64,10 +59,10 @@ public class EncryptionUtil {
         return encrypted;
     }
 
-    public static byte[] encryptSecretKey(byte skey[]) {
+    public static byte[] encryptSecretKey(byte skey[], Context context) {
         byte[] encryptedSecretKey = null;
         try {
-            PublicKey publicKey = loadPublicKey(SharedPrefUtil.getPublicKey(UserExperior.getUeContext())); // issue
+            PublicKey publicKey = loadPublicKey(SharedPrefUtil.getPublicKey(context));
             if(publicKey == null) return null;
             // initialize the cipher with the user's public key
             Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
