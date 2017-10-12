@@ -1,4 +1,4 @@
-package com.zee.uedecryptutil;
+package com.zee.decryptutil;
 
 import java.io.DataInputStream;
 import java.io.File;
